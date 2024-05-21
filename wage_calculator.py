@@ -26,6 +26,8 @@ class Wage_Calculator():
         self.base_real_wages = self.base_wages[[2021]]
         self.astro_real_wages = self.astro_wages[[2021]]
         self.astro_real_wages_fte60 = self.astro_wages[[2021]]
+
+        self.colors = ['tab:green', 'tab:blue', 'tab:purple']
         
         self._calculate_gross_increases()
         self._calculate_net_increases()
@@ -174,12 +176,11 @@ class Wage_Calculator():
         plt.figure(figsize=(10, 6))
         plt.title('Gross Wages by Level')
         years = list(self.base_wages.columns)
-        colors = ['red', 'orange', 'green']
         for i, level in enumerate(self.levels):
-            plt.plot(years, self.base_wages.loc[level], ':o', color=colors[i], label=f'base {level}')
-            plt.plot(years, self.astro_wages.loc[level], '-o', color=colors[i], label=f'astro {level}')
+            plt.plot(years, self.base_wages.loc[level], ':o', color=self.colors[i], label=f'base {level}')
+            plt.plot(years, self.astro_wages.loc[level], '-o', color=self.colors[i], label=f'astro {level}')
             if fte60:
-                plt.plot(years, self.astro_wages_fte60.loc[level], '-o', alpha=.3, color=colors[i], label=f'astro {level} FTE60')
+                plt.plot(years, self.astro_wages_fte60.loc[level], '-o', alpha=.3, color=self.colors[i], label=f'astro {level} FTE60')
         plt.xlabel('Year')
         plt.ylabel('Monthly Rate [$]')
         plt.legend()
@@ -190,17 +191,16 @@ class Wage_Calculator():
         plt.figure(figsize=(10, 6))
         plt.title('Inflation Adjusted Wages by Level (2021 Dollars)')
         years = list(self.base_wages.columns)
-        colors = ['red', 'orange', 'green']
         for i, level in enumerate(self.levels):
-            plt.plot(years, self.astro_real_wages.loc[level], '-o', color=colors[i], label=f'astro {level}')
+            plt.plot(years, self.astro_real_wages.loc[level], '-o', color=self.colors[i], label=f'astro {level}')
             if plot_base:
-                plt.plot(years, self.base_real_wages.loc[level], ':o', color=colors[i], label=f'base {level}')
+                plt.plot(years, self.base_real_wages.loc[level], ':o', color=self.colors[i], label=f'base {level}')
             if wages2021_base:
-                plt.axhline(self.base_real_wages.loc[level, 2021], linestyle=':', alpha=.2, color=colors[i])
+                plt.axhline(self.base_real_wages.loc[level, 2021], linestyle=':', alpha=.2, color=self.colors[i])
             if wages2021_astro:
-                plt.axhline(self.astro_real_wages.loc[level, 2021], alpha=.2, color=colors[i])
+                plt.axhline(self.astro_real_wages.loc[level, 2021], alpha=.2, color=self.colors[i])
             if fte60:
-                plt.plot(years, self.astro_real_wages_fte60.loc[level], '-o', alpha=.3, color=colors[i], label=f'astro {level} FTE60')
+                plt.plot(years, self.astro_real_wages_fte60.loc[level], '-o', alpha=.3, color=self.colors[i], label=f'astro {level} FTE60')
         plt.xlabel('Year')
         plt.ylabel('Monthly Rate [2021 $]')
         plt.legend()

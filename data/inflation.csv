@@ -1,0 +1,11 @@
+year,inflation
+2021,4.98
+2022,8.93
+2023,5.75
+2024,4.35
+2025,3.5
+2026,3
+2027,3
+###############
+# Seattle inflation for past 4 years, plus projected 3.5%, 3%, and 3% inflation
+# source https://www.bls.gov/regions/west/news-release/consumerpriceindex_seattle.htm

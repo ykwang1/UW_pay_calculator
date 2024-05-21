@@ -5,15 +5,16 @@ class Wage_Calculator():
     '''Calculator to explore how new salary rates affect Astronomy Dept wages.'''
     def __init__(self):
         # import wages
-        self.base_wages = pd.read_csv('base_wages.csv', index_col=0).T
-        self.astro_wages = pd.read_csv('astro_wages.csv', index_col=0).T
+        self.base_wages = pd.read_csv('data/base_wages.csv', index_col=0).T
+        self.astro_wages = pd.read_csv('data/astro_wages.csv', index_col=0).T
         
         # old 60% FTE wages
         self.astro_wages_fte60 = (self.base_wages * 1.2).astype(int)
         
         # Seattle inflation for past 4 years, plus projected 3.5%, 3%, and 3% inflation
         # source https://www.bls.gov/regions/west/news-release/consumerpriceindex_seattle.htm
-        self.inflation = {2021: 4.98, 2022: 8.93, 2023: 5.75, 2024: 4.35, 2025: 3.5, 2026: 3, 2027: 3}
+        df = pd.read_csv('data/inflation.csv', comment='#')
+        self.inflation = {df.iloc[i]["year"]: df.iloc[i]["inflation"] for i in range(len(df))}
         self.levels=list(self.base_wages.index)
         
         # initialize dataframes for pay increase rates and real wages
